@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using Parser.Model;
+using ParserRetail.Model;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using System;
@@ -13,39 +14,20 @@ using System.Threading.Tasks;
 
 namespace Parser.Controller
 {
-    public class ControllerBase
+    public class ControllerBase : BaseContext
     {
-
-        public void Save(HtmlNode cssSelect)
+        public  void Save(HtmlNode cssSelect)
         {
-            using (BaseContext db = new BaseContext())
+            foreach (var menu in cssSelect.SelectNodes("li"))
             {
+                string titleCategories = menu.Attributes["title"]?.Value;
 
-                foreach (var menu in cssSelect.SelectNodes("li"))
-                {
-                    string titleCategories = menu.Attributes["title"]?.Value;
-
-                    db.ProductsTitle.Add(new CategoriesMenu { Сategory = titleCategories });
-                    db.SaveChanges();
-
-
-                }
+                Categories.Add(new Category { Name = titleCategories });
+                SaveChanges();
 
             }
-        }
-
-        public void  Load()
-        {
-            using (BaseContext db = new BaseContext())
-            {
-                var products = db.ProductsTitle.ToList();
-             
-    
-            }
-             
 
         }
-
-
     }
 }
+

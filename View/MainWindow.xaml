@@ -5,31 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" >
+    <Window.Resources>
+        <CollectionViewSource x:Key="categoryViewSource"/>
+        <CollectionViewSource x:Key="categoryProductsViewSource" 
+                              Source="{Binding Products, Source={StaticResource categoryViewSource}}"/>
+    </Window.Resources>
     <Grid>
-        <Label Content="Фильтровать:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Label Content="Мазин" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="105"/>
-        <Label Content="Каталог товаров" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.499,1.851"/>
-        <ComboBox x:Name="ComboBoxDealer" HorizontalAlignment="Left" Margin="120,44,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="Dealer_SelectionChanged">
-            <ComboBoxItem>
-                <TextBlock>Varus</TextBlock>
-            </ComboBoxItem>
-        </ComboBox>
-        <ComboBox x:Name="Product_List" HorizontalAlignment="Left" Margin="120,71,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.5,2.051">
-           
-        </ComboBox>
-        <Label Content="Поиск:" HorizontalAlignment="Left" Margin="318,42,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="nameFilter" Height="23" Margin="380,45,165,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Button Click="ActiveFilter" Content="Применить фильтр" HorizontalAlignment="Right" Margin="0,45,10,0" VerticalAlignment="Top" Width="150"/>
-        <ListView  Margin="10,114,10,10" SelectionChanged="userList_SelectionChanged">
-            <ListView.View >
-                <GridView x:Name="userList">
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=controllerBase}" Header="№" Width="50" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Product}" Header="Каталог товаров" Width="120" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ProgressBar Height="18" Width="200" IsIndeterminate="True">
-        </ProgressBar>
+        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
+                  EnableRowVirtualization="True" 
+                  ItemsSource="{Binding Source={StaticResource categoryViewSource}}" 
+                  Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding CategoryId}"
+                                    Header="Category Id" Width="SizeToHeader"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
+                                    Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="productsDataGrid" AutoGenerateColumns="False" 
+                  EnableRowVirtualization="True" 
+                  ItemsSource="{Binding Source={StaticResource categoryProductsViewSource}}" 
+                  Margin="13,205,43,108" RowDetailsVisibilityMode="VisibleWhenSelected" 
+                  RenderTransformOrigin="0.488,0.251">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding CategoryId}" 
+                                    Header="Category Id" Width="SizeToHeader"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding ProductId}" Header="Product Id" 
+                                    Width="SizeToHeader" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Save" HorizontalAlignment="Center" Margin="0,240,0,0" 
+                Click="Button_Click" Height="20" Width="123"/>
     </Grid>
 </Window>

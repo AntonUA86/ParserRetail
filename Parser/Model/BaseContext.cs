@@ -1,27 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ParserRetail.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 
 namespace Parser.Model
 {
-    public class BaseContext : DbContext
-    {
-        public DbSet<CategoriesMenu> ProductsTitle { get; set; }
-        public DbSet<CategoriesSubMenu> CategoriesSubMenus { get; set; }
-        public DbSet<ProductInfo> ProductInf { get; set; }
-
-        public BaseContext() 
+      public class BaseContext : DbContext
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
-        }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(
+            DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ProductsList;Trusted_Connection=True;");
+            optionsBuilder.UseSqlite(
+                "Data Source=Products.db");
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
         }
     }
+   
 }
