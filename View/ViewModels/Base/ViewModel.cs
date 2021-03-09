@@ -6,9 +6,11 @@ using System.Text;
 
 namespace View.ViewModels.Base
 {
-    internal abstract class ViewModel : INotifyPropertyChanged
+    internal abstract class ViewModel : INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private bool _Disposed;
+       
 
         protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
         {
@@ -29,6 +31,19 @@ namespace View.ViewModels.Base
             OnPropertyChanged(PropertyName);
             return true;
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool Disposing)
+        {
+            if (!Disposing || _Disposed) return;
+            _Disposed = true;
+            // Освобождение управляемых ресурсов
+        }
+
 
     }
 }
