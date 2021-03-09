@@ -6,6 +6,7 @@ using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -25,8 +26,9 @@ namespace View
         private CollectionViewSource categoryViewSource;
         private readonly Browser _browser = new Browser();
         Thread The;
+        List<string> Products = new List<string>();
 
-         
+
 
         public MainWindow()
         {
@@ -53,19 +55,25 @@ namespace View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _controllerBase.Database.EnsureCreated();
-            
+            /*_controllerBase.Database.EnsureCreated();*/
+           
 
             // это заставляет сетку обновляться до последних значений
-            categoryDataGrid.Items.Refresh();
-            productsDataGrid.Items.Refresh();
+            /*   categoryDataGrid.Items.Refresh();
+               productsDataGrid.Items.Refresh();*/
         }
 
        private  void go()
         {
-            _controllerBase.Save(_browser.Link());
+            foreach (var prod in _browser.Link().InnerText)
+            {
+                Products.Add(prod.ToString());
+            }
+          
+         /*   _controllerBase.Save(_browser.Link());*/
 
         }
+
 
       
 

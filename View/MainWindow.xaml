@@ -12,7 +12,7 @@
                               Source="{Binding Products, Source={StaticResource categoryViewSource}}"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
+        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="True" 
                   EnableRowVirtualization="True" 
                   ItemsSource="{Binding Source={StaticResource categoryViewSource}}" 
                   Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
@@ -21,7 +21,8 @@
                                     Header="Category Id" Width="SizeToHeader"
                                     IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
-                                    Width="*"/>
+                                    Width="*"
+                                    IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="productsDataGrid" AutoGenerateColumns="False" 
