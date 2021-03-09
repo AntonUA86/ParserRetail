@@ -25,7 +25,6 @@ namespace View
         private readonly ControllerBase _controllerBase = new ControllerBase();
         private CollectionViewSource categoryViewSource;
         private readonly Browser _browser = new Browser();
-        Thread The;
         List<string> Products = new List<string>();
 
 
@@ -34,33 +33,32 @@ namespace View
         {
             InitializeComponent();
 
-            categoryViewSource = (CollectionViewSource)FindResource(nameof(categoryViewSource));
+            /*categoryViewSource = (CollectionViewSource)FindResource(nameof(categoryViewSource));*/
 
-            The = new Thread(go) { IsBackground = true };
-            The.Start();
+           
         }
-
+/*
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
           
            
 
             // загружаем сущности в EF Core
-            /*     _controllerBase.Categories.Load();*/
+            *//*     _controllerBase.Categories.Load();*//*
 
             // привязать к источнику
-            categoryViewSource.Source =
-               _controllerBase.Categories.Local.ToObservableCollection();
-        }
+         *//*   categoryViewSource.Source =
+               _controllerBase.Categories.Local.ToObservableCollection();*//*
+        }*/
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+      /*  private void Button_Click(object sender, RoutedEventArgs e)
         {
-            /*_controllerBase.Database.EnsureCreated();*/
+            *//*_controllerBase.Database.EnsureCreated();*//*
            
 
             // это заставляет сетку обновляться до последних значений
-            /*   categoryDataGrid.Items.Refresh();
-               productsDataGrid.Items.Refresh();*/
+            *//*   categoryDataGrid.Items.Refresh();
+               productsDataGrid.Items.Refresh();*//*
         }
 
        private  void go()
@@ -70,9 +68,9 @@ namespace View
                 Products.Add(prod.ToString());
             }
           
-         /*   _controllerBase.Save(_browser.Link());*/
+         *//*   _controllerBase.Save(_browser.Link());*//*
 
-        }
+        }*/
 
 
       
