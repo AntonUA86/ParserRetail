@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        xmlns:vm="clr-namespace:View.ViewModels"
+        xmlns:l="clr-namespace:View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" >
+        Title="{Binding Title}" Height="450" Width="800" Loaded="Window_Loaded" >
+    <Window.DataContext>
+        <vm:MainWindowsViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <CollectionViewSource x:Key="categoryViewSource"/>
         <CollectionViewSource x:Key="categoryProductsViewSource" 
@@ -20,7 +24,8 @@
                 <DataGridTextColumn Binding="{Binding CategoryId}"
                                     Header="Category Id" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
+                <DataGridTextColumn Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                                    Header="Name" 
                                     Width="*"
                                     IsReadOnly="True"/>
             </DataGrid.Columns>
