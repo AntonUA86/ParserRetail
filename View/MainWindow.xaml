@@ -20,20 +20,36 @@
             </MenuItem>
         </Menu>
         <TabControl>
-            <TabItem Header="Влкадка 1">
+            <TabItem Header="Ашан">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="200*"/>
+                        <ColumnDefinition Width="100*"/>
                     </Grid.ColumnDefinitions>
+                    <GroupBox Header="Категория">
+                        <ListBox ItemsSource="{Binding ProductsInfo}" 
+                                 DisplayMemberPath="Categories"
+                                 SelectedItem="{Binding SelectedGroup}"
+                                 />
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="{Binding SelectedGroup.Categories , FallbackValue='Список товаров'}">
+                        <DataGrid ItemsSource="{Binding SelectedGroup.Results}" 
+                                  AutoGenerateColumns="False" 
+                                  IsReadOnly="True"
+                                  GridLinesVisibility="Vertical"
+                                  VerticalGridLinesBrush="DarkGray"
+                                  >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Продукт" Binding="{Binding title}"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding price}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Влкадка 2"></TabItem>
         </TabControl>
     </DockPanel>
-  
+
 </Window>
