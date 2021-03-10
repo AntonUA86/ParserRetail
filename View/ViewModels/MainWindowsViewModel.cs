@@ -9,19 +9,24 @@ using View.Infrastructure.Commands;
 using View.ViewModels.Base;
 using Parser.Model;
 using System.Linq;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using ParserRetail.Model;
 
 namespace View.ViewModels
 {
     internal class MainWindowsViewModel : ViewModel
     {
+        /*private const string data_url = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";*/
+        public ObservableCollection<Categories> Categories { get; set; }
 
-        public ObservableCollection<ProductsInfo> ProductsInfo { get;}
+        #region Выбор Товара
 
-        #region Выбранная Група Товаров
+        private string _SelectedCategories = "Категория";
 
-        private ProductsInfo _SelectedGroup; 
-
-        public ProductsInfo SelectedGroup { get => _SelectedGroup; set => Set(ref _SelectedGroup, value); }
+        public string SelectedCategories { get => _SelectedCategories; set => Set(ref _SelectedCategories, value); }
 
 
         #endregion
@@ -43,7 +48,7 @@ namespace View.ViewModels
         #endregion
         #endregion
 
-        ControllerBase controllerBase = new ControllerBase();
+
 
         public MainWindowsViewModel()
         {
@@ -51,26 +56,50 @@ namespace View.ViewModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             #endregion
 
-
-            var s_index = 1;
-            var result = Enumerable.Range(1, 100).Select(i => new Result
+            var ProducttIndex = 1;
+            var products = Enumerable.Range(1, 10).Select(i => new Product
             {
-                title = $"{s_index++}",
-                price = s_index++
+               
+                title = $"title {ProducttIndex++}",
+                 Name = $"name {ProducttIndex++}"
             }
             );
 
-            var productsInfos = Enumerable.Range(1, 50).Select(i => new ProductsInfo
+            var categories = Enumerable.Range(1, 20).Select(i => new Categories
             {
-                Name = "Ашан",
-                Categories = "Хлеб",
-                Results = new ObservableCollection<Result>(result)
-
+                Name = "Хлеб",
+                Products = new ObservableCollection<Product>(products)
             });
 
-            ProductsInfo = new ObservableCollection<ProductsInfo>(productsInfos);
+            Categories = new ObservableCollection<Categories>(categories);
 
 
         }
+
+        /*private static (string title, int price)  GoToPrice()
+        {
+
+            
+            using (var client = new WebClient())
+            using (var stream = client.OpenRead(data_url))
+            using (var reader = new StreamReader(stream))
+            {
+              
+                var jObject = JObject.Parse(reader.ReadLine());
+                var feed = JsonConvert.DeserializeObject<Categories>(jObject.ToString());
+
+                foreach (var item in feed.Product)
+                {
+                    
+                    var result = (title: item.title, price: item.price);
+                    return result;
+                }
+                return (null,33);
+            }
+
+
+
+
+        }*/
     }
 }

@@ -29,16 +29,15 @@ namespace Parser.Controller
             {
 
                 var jObject = JObject.Parse(reader.ReadLine());
-                var feed = JsonConvert.DeserializeObject<Rootobject>(jObject.ToString());
-                for (int i = 0; i < feed.results.Length; i++)
+                var feed = JsonConvert.DeserializeObject<Categories>(jObject.ToString());
+               
+                foreach (var item in feed.Products)
                 {
-                    var title = feed.results[i].title;
-                    var price = feed.results[i].price;
-                    Categories.Add(new Result { title = title, price = price});*/
+                    var title = item.title;
+                    var price = item.price;
+                   /* Categories.Add(new Product { title = title, price = price });*/
                     SaveChanges();
-
                 }
-
 
             }
            

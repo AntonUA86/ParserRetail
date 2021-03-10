@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800" >
     <Window.DataContext>
-        <vm:MainWindowsViewModel/>
+        <vm:MainWindowsViewModel />
     </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -28,27 +28,29 @@
                         <ColumnDefinition Width="100*"/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="Категория">
-                        <ListBox ItemsSource="{Binding ProductsInfo}" 
-                                 DisplayMemberPath="Categories"
-                                 SelectedItem="{Binding SelectedGroup}"
+                        <ListBox ItemsSource="{Binding Categories}" 
+                                 DisplayMemberPath="Name"
+                                 SelectedItem="{Binding SelectedCategories}"
                                  />
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header="{Binding SelectedGroup.Categories , FallbackValue='Список товаров'}">
-                        <DataGrid ItemsSource="{Binding SelectedGroup.Results}" 
+                    <GroupBox Grid.Column="1" Header="{Binding SelectedCategories, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}">
+                        <DataGrid ItemsSource="{Binding SelectedCategories}" 
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
                                   VerticalGridLinesBrush="DarkGray"
                                   >
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Продукт" Binding="{Binding title}"/>
-                                <DataGridTextColumn Header="Цена" Binding="{Binding price}"/>
+                                <DataGridTextColumn Header="Продукт"/>
+                                <DataGridTextColumn Header="Цена"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Влкадка 2"></TabItem>
+            <TabItem Header="Влкадка 2">
+                <TextBlock Text="{Binding Categories[0].Products[2].price}"/>
+            </TabItem>
         </TabControl>
     </DockPanel>
 

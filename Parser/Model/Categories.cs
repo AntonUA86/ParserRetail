@@ -8,10 +8,13 @@ namespace ParserRetail.Model
 { /// <summary>
   /// Products
   /// </summary>
-    public class Rootobject
+    public class Categories
     {
+        public string Name { get; set; }
+        
         [JsonProperty("results")]
-        public Result[] results { get; set; }
-     
+        public ICollection<Product> Products { get; set; }
+
+
     }
 }
