@@ -10,8 +10,9 @@ namespace Parser.Model
 {
       public class BaseContext : DbContext
         {
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        
+/*        public DbSet<Rootobject> Products { get; set; }*/
+        public DbSet<Result> Categories { get; set; }
 
 
         protected override void OnConfiguring(

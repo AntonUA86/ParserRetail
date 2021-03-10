@@ -14,7 +14,7 @@ namespace Parser.Controller
 
         ScrapingBrowser browser = new ScrapingBrowser();
          
-        public  HtmlNode Link()
+        public IEnumerable<HtmlNode> Link()
         {
             /// <summary>
             /// Загрузить веб-страницу
@@ -24,7 +24,7 @@ namespace Parser.Controller
             /// все элементы списка, содержащие .product-tile__prices
             /// </summary>
             HtmlNode CssSelectMenuVarus =  LinkMenuVarus.Html.CssSelect(".CategoriesMenu__list").Single();
-            return  CssSelectMenuVarus;
+            yield  return  CssSelectMenuVarus;
         }
     }
 }

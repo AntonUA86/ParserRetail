@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parser.Controller;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -29,11 +30,15 @@ namespace View.ViewModels
         #endregion
         #endregion
 
+        ControllerBase controllerBase = new ControllerBase();
+
         public MainWindowsViewModel()
         {
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             #endregion
+
+      
         }
     }
 }

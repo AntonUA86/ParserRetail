@@ -22,57 +22,13 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ControllerBase _controllerBase = new ControllerBase();
-        private CollectionViewSource categoryViewSource;
-        private readonly Browser _browser = new Browser();
-        List<string> Products = new List<string>();
-
 
 
         public MainWindow()
         {
             InitializeComponent();
-
-            /*categoryViewSource = (CollectionViewSource)FindResource(nameof(categoryViewSource));*/
-
-           
-        }
-/*
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
           
-           
-
-            // загружаем сущности в EF Core
-            *//*     _controllerBase.Categories.Load();*//*
-
-            // привязать к источнику
-         *//*   categoryViewSource.Source =
-               _controllerBase.Categories.Local.ToObservableCollection();*//*
-        }*/
-
-      /*  private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            *//*_controllerBase.Database.EnsureCreated();*//*
-           
-
-            // это заставляет сетку обновляться до последних значений
-            *//*   categoryDataGrid.Items.Refresh();
-               productsDataGrid.Items.Refresh();*//*
         }
-
-       private  void go()
-        {
-            foreach (var prod in _browser.Link().InnerText)
-            {
-                Products.Add(prod.ToString());
-            }
-          
-         *//*   _controllerBase.Save(_browser.Link());*//*
-
-        }*/
-
-
       
          
     }
