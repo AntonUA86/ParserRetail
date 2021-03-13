@@ -19,14 +19,17 @@ namespace View.ViewModels
 {
     internal class MainWindowsViewModel : ViewModel
     {
-        /*private const string data_url = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";*/
-        public ObservableCollection<Categories> Categories { get; set; }
+        private const string data_url = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";
+        public ObservableCollection<Categories> Categories { get;}
 
-        #region Выбор Товара
+        #region Выбор Категории
 
-        private string _SelectedCategories = "Категория";
+        private Categories  _SelectedCategories;
 
-        public string SelectedCategories { get => _SelectedCategories; set => Set(ref _SelectedCategories, value); }
+        public Categories SelectedCategories {
+            get => _SelectedCategories; 
+            set => Set(ref _SelectedCategories, value); 
+        }
 
 
         #endregion
@@ -56,14 +59,8 @@ namespace View.ViewModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             #endregion
 
-            var ProducttIndex = 1;
-            var products = Enumerable.Range(1, 10).Select(i => new Product
-            {
-               
-                title = $"title {ProducttIndex++}",
-                 Name = $"name {ProducttIndex++}"
-            }
-            );
+    
+            IEnumerable<Product> products = NewMethod(GoToPrice().title,GoToPrice().price);
 
             var categories = Enumerable.Range(1, 20).Select(i => new Categories
             {
@@ -76,7 +73,18 @@ namespace View.ViewModels
 
         }
 
-        /*private static (string title, int price)  GoToPrice()
+        private static IEnumerable<Product> NewMethod(string title, int price)
+        {
+            return Enumerable.Range(1, 10).Select(i => new Product
+            {
+
+                title = title,
+                price = price
+            }
+            );
+        }
+
+        public static (string title, int price)  GoToPrice()
         {
 
             
@@ -88,18 +96,18 @@ namespace View.ViewModels
                 var jObject = JObject.Parse(reader.ReadLine());
                 var feed = JsonConvert.DeserializeObject<Categories>(jObject.ToString());
 
-                foreach (var item in feed.Product)
+                foreach (var item in feed.Products)
                 {
-                    
-                    var result = (title: item.title, price: item.price);
-                    return result;
+
+                     var result = (title: item.title, price: item.price);
+                    return (result.title, result.price);
                 }
-                return (null,33);
+                return ("Ошибка", 0);
             }
 
 
 
 
-        }*/
+        }
     }
 }

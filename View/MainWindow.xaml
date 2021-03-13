@@ -23,26 +23,25 @@
             <TabItem Header="Ашан">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="200*"/>
-                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Категория">
+                    <GroupBox Grid.Row="0"  Header="Категория" >
                         <ListBox ItemsSource="{Binding Categories}" 
                                  DisplayMemberPath="Name"
-                                 SelectedItem="{Binding SelectedCategories}"
+                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,177,0"
                                  />
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header="{Binding SelectedCategories, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}">
-                        <DataGrid ItemsSource="{Binding SelectedCategories}" 
+                    <GroupBox Header="{Binding SelectedCategories.Name, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,0,-23,0" Grid.ColumnSpan="2">
+                        <DataGrid ItemsSource="{Binding SelectedCategories.Products}" 
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
-                                  VerticalGridLinesBrush="DarkGray"
+                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"
                                   >
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Продукт"/>
-                                <DataGridTextColumn Header="Цена"/>
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
+                                <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>

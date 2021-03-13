@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ParserRetail.Model
-{ /// <summary>
-  /// Products
-  /// </summary>
+{
+
     public class Categories
     {
         public string Name { get; set; }
