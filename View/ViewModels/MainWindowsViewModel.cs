@@ -15,20 +15,22 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ParserRetail.Model;
 
+
 namespace View.ViewModels
 {
     internal class MainWindowsViewModel : ViewModel
     {
-        private const string data_url = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";
-        public ObservableCollection<Categories> Categories { get;}
+        private const string url = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";
+        public ObservableCollection<Categories> Categories { get; }
 
         #region Выбор Категории
 
-        private Categories  _SelectedCategories;
+        private Categories _SelectedCategories;
 
-        public Categories SelectedCategories {
-            get => _SelectedCategories; 
-            set => Set(ref _SelectedCategories, value); 
+        public Categories SelectedCategories
+        {
+            get => _SelectedCategories;
+            set => Set(ref _SelectedCategories, value);
         }
 
 
@@ -59,55 +61,28 @@ namespace View.ViewModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             #endregion
 
-    
-            IEnumerable<Product> products = NewMethod(GoToPrice().title,GoToPrice().price);
+            ControllerProductInfo controllerProductInfo = new ControllerProductInfo();
+            List<Product> product = new List<Product>();
 
-            var categories = Enumerable.Range(1, 20).Select(i => new Categories
-            {
-                Name = "Хлеб",
-                Products = new ObservableCollection<Product>(products)
-            });
+
+
+            controllerProductInfo.SaveProductToList(product, url);
+
+            IEnumerable<Categories> categories = GetCategories(product,"Хлеб");
 
             Categories = new ObservableCollection<Categories>(categories);
 
 
         }
 
-        private static IEnumerable<Product> NewMethod(string title, int price)
+        private static IEnumerable<Categories> GetCategories(List<Product> prod, string nameCategories)
         {
-            return Enumerable.Range(1, 10).Select(i => new Product
+            return Enumerable.Range(1, 20).Select(i => new Categories
             {
-
-                title = title,
-                price = price
-            }
-            );
-        }
-
-        public static (string title, int price)  GoToPrice()
-        {
-
-            
-            using (var client = new WebClient())
-            using (var stream = client.OpenRead(data_url))
-            using (var reader = new StreamReader(stream))
-            {
-              
-                var jObject = JObject.Parse(reader.ReadLine());
-                var feed = JsonConvert.DeserializeObject<Categories>(jObject.ToString());
-
-                foreach (var item in feed.Products)
-                {
-
-                     var result = (title: item.title, price: item.price);
-                    return (result.title, result.price);
-                }
-                return ("Ошибка", 0);
-            }
-
-
-
-
+                Name = nameCategories,
+                Products = new ObservableCollection<Product>(prod)
+            });
         }
     }
 }
+
