@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Parser.Model;
+using Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ParserRetail.Model
+namespace ParserRetail.Models
 {
 
     public class Categories

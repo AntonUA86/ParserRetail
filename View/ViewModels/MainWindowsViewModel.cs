@@ -7,22 +7,27 @@ using System.Windows;
 using System.Windows.Input;
 using View.Infrastructure.Commands;
 using View.ViewModels.Base;
-using Parser.Model;
+using Parser.Models;
 using System.Linq;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using ParserRetail.Model;
+using ParserRetail.Models;
 
 
 namespace View.ViewModels
 {
     internal class MainWindowsViewModel : ViewModel
     {
-        private const string url = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";
+        private const string urlVarusBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/cheese-auchan/products/?sort=price_desc";
+        private const string urlEcoMarketBread = @"https://stores-api.zakaz.ua/stores/48280214/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";
+        private const string urlAuchanFuit = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A4%D1%80%D1%83%D0%BA%D1%82%D1%8B&category_id=fruits-and-vegetables-auchan";
         public ObservableCollection<Categories> Categories { get; }
 
+
+       
+       
         #region Выбор Категории
 
         private Categories _SelectedCategories;
@@ -34,13 +39,19 @@ namespace View.ViewModels
         }
 
 
+
         #endregion
         #region Заголовок окна
         private string _Title = "Анализ цен";
 
         public string Title { get => _Title; set => Set(ref _Title, value); }
 
+
+
+
         #endregion
+
+
 
         #region Команды
         #region CloseApplicationCommand
@@ -50,6 +61,19 @@ namespace View.ViewModels
         {
             Application.Current.Shutdown();
         }
+        #endregion
+        #region
+      /*  public ICommand ChangeTabIndexCommand { get; }
+
+        private bool CanChangeTabIndexCommmandExecute(object p) => true;
+
+        private void OnChangeTabIndexCommmandExecute(object p)
+        {
+
+
+            SelectedPageIndex += null ;
+        }*/
+
         #endregion
         #endregion
 
@@ -61,12 +85,12 @@ namespace View.ViewModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             #endregion
 
-            ControllerProductInfo controllerProductInfo = new ControllerProductInfo();
+            ProductInfoController productInfoController = new ProductInfoController();
             List<Product> product = new List<Product>();
+            
 
-
-
-            controllerProductInfo.SaveProductToList(product, url);
+            /*    controllerProductInfo.SaveProductToList(product, urlVarusBread);*/
+            productInfoController.SaveProductToList(product, urlVarusBread);
 
             IEnumerable<Categories> categories = GetCategories(product,"Хлеб");
 
@@ -75,7 +99,15 @@ namespace View.ViewModels
 
         }
 
-        private static IEnumerable<Categories> GetCategories(List<Product> prod, string nameCategories)
+        private static List<Categories> GetCategories(List<Product> prod, string nameCategories)
+        {
+            List<Categories> categories = new List<Categories>();
+            categories.Add(new Categories { Name = nameCategories , Products = new ObservableCollection<Product>(prod) });
+          
+            return categories;
+        }
+
+        private static IEnumerable<Categories> GetCategories2(List<Product> prod, string nameCategories)
         {
             return Enumerable.Range(1, 20).Select(i => new Categories
             {

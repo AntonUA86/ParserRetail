@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ParserRetail.Model;
+using ParserRetail.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
 
-namespace Parser.Model
+namespace Parser.Models
 {
       public class BaseContext : DbContext
         {

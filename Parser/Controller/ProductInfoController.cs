@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Parser.Model;
-using ParserRetail.Model;
+using Parser.Models;
+using ParserRetail.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Parser.Controller
 {
-    public class ControllerProductInfo
+    public class ProductInfoController
     {
         private static SortedList<string, int> GoToInfoProduct(string url)
         {
