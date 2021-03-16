@@ -20,8 +20,8 @@ namespace View.ViewModels
 {
     internal class MainWindowsViewModel : ViewModel
     {
-        private const string urlVarusBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/cheese-auchan/products/?sort=price_desc";
-        private const string urlEcoMarketBread = @"https://stores-api.zakaz.ua/stores/48280214/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";
+        private const string urlVarusBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/bread-auchan/products/?sort=price_asc";
+        private const string urlEcoMarketBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/semi-hard-cheese-auchan/products/?sort=price_asc";
         private const string urlAuchanFuit = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A4%D1%80%D1%83%D0%BA%D1%82%D1%8B&category_id=fruits-and-vegetables-auchan";
         public ObservableCollection<Categories> Categories { get; }
 
@@ -38,7 +38,7 @@ namespace View.ViewModels
             set => Set(ref _SelectedCategories, value);
         }
 
-
+        
 
         #endregion
         #region Заголовок окна
@@ -86,24 +86,27 @@ namespace View.ViewModels
             #endregion
 
             ProductInfoController productInfoController = new ProductInfoController();
-            List<Product> product = new List<Product>();
-            
+            Dictionary<string,Product> product = new Dictionary<string,Product>();
+            Dictionary<string, string> url = new Dictionary<string, string>();
+            url.Add("Хлеб",urlVarusBread);
 
             /*    controllerProductInfo.SaveProductToList(product, urlVarusBread);*/
-            productInfoController.SaveProductToList(product, urlVarusBread);
+        /*    productInfoController.SaveProductToList(product, urlVarusBread,"Хлеб");*/
+            productInfoController.SaveProductToList(product, urlEcoMarketBread, "Молоко");
 
-            IEnumerable<Categories> categories = GetCategories(product,"Хлеб");
+            IEnumerable<Categories> categories = GetCategories(product);
 
             Categories = new ObservableCollection<Categories>(categories);
 
 
         }
 
-        private static List<Categories> GetCategories(List<Product> prod, string nameCategories)
+        private static List<Categories> GetCategories(Dictionary<string,Product> prod)
         {
             List<Categories> categories = new List<Categories>();
-            categories.Add(new Categories { Name = nameCategories , Products = new ObservableCollection<Product>(prod) });
-          
+            categories.Add(new Categories { Name = prod.Keys.ToString() , Products = new ObservableCollection<Product>(prod.Values) });
+            categories.Add(new Categories { Name = prod.Keys.ToString(), Products = new ObservableCollection<Product>(prod.Values) });
+
             return categories;
         }
 

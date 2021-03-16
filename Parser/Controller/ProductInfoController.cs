@@ -27,10 +27,10 @@ namespace Parser.Controller
             }
         }
 
-        public void SaveProductToList(List<Product> prod , string url)
+        public void SaveProductToList(Dictionary<string,Product> prod , string url, string name)
         {
             foreach (var p in GoToInfoProduct(url))
-                prod.Add(new Product { title = p.Key, price = p.Value });
+                prod.Add(name,new Product { title = p.Key, price = p.Value });
         }
     }
 }
