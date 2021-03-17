@@ -20,9 +20,7 @@
             </MenuItem>
         </Menu>
         <TabControl>
-
             <TabItem Header="Auchan" Name="Auchan">
-
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -84,15 +82,16 @@
                                   GridLinesVisibility="Vertical"
                                   VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"  Height="305"
                                   >
-                            <DataGrid.Columns >
-                                <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
-                                <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
+                                    <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
                     </GroupBox>
-
                 </Grid>
             </TabItem>
+            
             <TabItem Header="Novus" Name="Novus" >
                 <Grid>
                     <Grid.ColumnDefinitions>
