@@ -12,7 +12,9 @@ namespace Parser.Models
         {
         
 
-        public DbSet<Product> Categories { get; set; }
+        public DbSet<Categories> Categories { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Stores> Stores { get; set; }
 
 
         protected override void OnConfiguring(

@@ -227,7 +227,6 @@ namespace View.ViewModels
 
             return categories;
         }
-
         private static List<Categories> GetCategoriesNovus()
         {
             List<Categories> categories = new List<Categories>();

@@ -19,8 +19,8 @@ namespace Parser.Controller
 {
     public class BaseController : BaseContext
     {
-        private const string data_url = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A5%D0%BB%D0%B5%D0%B1&per_page=100";
-        public  void Save()
+      
+ /*       public  void Save()
         {
           
             using (var client = new WebClient())
@@ -44,7 +44,7 @@ namespace Parser.Controller
 
             
 
-        }
+        }*/
     }
 }
 
