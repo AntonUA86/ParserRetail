@@ -91,7 +91,7 @@ namespace View.ViewModels
             }
         }
 
-        
+
 
         #endregion
 
@@ -104,6 +104,36 @@ namespace View.ViewModels
 
 
 
+        #endregion
+
+        #region SelectedCategoriesProduct Filtred
+        private readonly CollectionViewSource _SelectedCategoriesProduct = new CollectionViewSource();
+
+        public ICollectionView SelectedCategoriesProduct => _SelectedCategoriesProduct?.View;
+
+        private void OnProductFiltred(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Product product)  )
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            var filterText = ProductFilterText;
+            if (string.IsNullOrWhiteSpace(filterText))
+                return;
+
+            if (product.Name is null)
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            if (product.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            e.Accepted = false;
+
+        }
         #endregion
 
         #region SelectedCategoriesProduct Filtred

@@ -20,7 +20,9 @@
             </MenuItem>
         </Menu>
         <TabControl>
+
             <TabItem Header="Auchan" Name="Auchan">
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -72,7 +74,7 @@
                     <GroupBox Grid.Row="0"  Header="Категория" >
                         <ListBox ItemsSource="{Binding CategoriesNovus}" 
                                  DisplayMemberPath="Name"
-                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,177,0"
+                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
                     <GroupBox Header="{Binding SelectedCategories.Name, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,0,-23,0" Grid.ColumnSpan="2">
@@ -80,7 +82,7 @@
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
-                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"
+                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"  Height="305"
                                   >
                             <DataGrid.Columns >
                                 <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
@@ -88,6 +90,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Novus" Name="Novus" >
