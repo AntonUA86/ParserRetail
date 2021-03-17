@@ -14,23 +14,31 @@ namespace Parser.Controller
     {
         private static SortedList<string, int> GoToInfoProduct(string url)
         {
-            using (var client = new WebClient())
+            using (var client = new WebClient())                                   
             using (var stream = client.OpenRead(url))
             using (var reader = new StreamReader(stream))
             {
+                  
                 SortedList<string, int> ProductsInfo = new SortedList<string, int>();
                 var jObject = JObject.Parse(reader.ReadLine());
                 var feed = JsonConvert.DeserializeObject<Categories>(jObject.ToString());
+
                 foreach (var item in feed.Products)
                     ProductsInfo.Add(item.title, item.price);
                 return ProductsInfo;
+                
             }
         }
 
-        public void SaveProductToList(Dictionary<string,Product> prod , string url, string name)
+        public List<Product> SaveProductToList(string url)
         {
+            List<Product> products = new List<Product>();
             foreach (var p in GoToInfoProduct(url))
-                prod.Add(name,new Product { title = p.Key, price = p.Value });
+                products.Add(new Product { title = p.Key, price = p.Value });
+            return products;
+
         }
+
+
     }
 }
