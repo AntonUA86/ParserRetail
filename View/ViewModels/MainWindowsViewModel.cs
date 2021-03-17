@@ -156,9 +156,6 @@ namespace View.ViewModels
 
             productInfoController = new ProductInfoController();
 
-
-
-
             CategoriesVarus = new ObservableCollection<Categories>(GetCategoriesVarus());
             CategoriesEcoMarket = new ObservableCollection<Categories>(GetCategoriesEcoMarket());
             CategoriesNovus = new ObservableCollection<Categories>(GetCategoriesNovus());
@@ -182,7 +179,6 @@ namespace View.ViewModels
 
             return categories;
         }
-
         private static List<Categories> GetCategoriesNovus()
         {
             List<Categories> categories = new List<Categories>();
