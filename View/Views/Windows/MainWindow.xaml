@@ -45,9 +45,9 @@
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="0,10">
                                 <TextBlock Text="Фильтер :"/>
-                                <TextBox Text="{Binding ProductFilterText}" />
+                                <TextBox Text="{Binding ProductFilterText, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
-                            <DataGrid ItemsSource="{Binding SelectedCategoriesProduct}" 
+                            <DataGrid ItemsSource="{Binding SelectedCategoriesProducts}" 
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
@@ -91,88 +91,132 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            
             <TabItem Header="Novus" Name="Novus" >
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Row="0"  Header="Категория" >
+                    <GroupBox Grid.Row="0"  Header="Категория"   Grid.RowSpan="3">
                         <ListBox ItemsSource="{Binding CategoriesNovus}" 
                                  DisplayMemberPath="Name"
-                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,177,0"
+                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
-                    <GroupBox Header="{Binding SelectedCategories.Name, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,0,-23,0" Grid.ColumnSpan="2">
-                        <DataGrid ItemsSource="{Binding SelectedCategories.Products}" 
+                    <GroupBox Header="{Binding SelectedCategories.Name,   
+                        FallbackValue='Список товаров',
+                        TargetNullValue='Категория не выброна'}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="0,10">
+                                <TextBlock Text="Фильтер :"/>
+                                <TextBox Text="{Binding ProductFilterText, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DataGrid ItemsSource="{Binding SelectedCategoriesProducts}" 
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
-                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"
+                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,-2,0"
                                   >
-                            <DataGrid.Columns >
-                                <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
-                                <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
+                                    <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="EcoMarket" Name="EcoMarket" >
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Row="0"  Header="Категория" >
+                    <GroupBox Grid.Row="0"  Header="Категория"   Grid.RowSpan="3">
                         <ListBox ItemsSource="{Binding CategoriesEcoMarket}" 
                                  DisplayMemberPath="Name"
-                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,177,0"
+                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
-                    <GroupBox Header="{Binding SelectedCategories.Name, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,0,-23,0" Grid.ColumnSpan="2">
-                        <DataGrid ItemsSource="{Binding SelectedCategories.Products}" 
+                    <GroupBox Header="{Binding SelectedCategories.Name,   
+                        FallbackValue='Список товаров',
+                        TargetNullValue='Категория не выброна'}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="0,10">
+                                <TextBlock Text="Фильтер :"/>
+                                <TextBox Text="{Binding ProductFilterText, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DataGrid ItemsSource="{Binding SelectedCategoriesProducts}" 
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
-                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"
+                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,-2,0"
                                   >
-                            <DataGrid.Columns >
-                                <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
-                                <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
+                                    <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Varus" Name="Varus" >
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Row="0"  Header="Категория" >
+                    <GroupBox Grid.Row="0"  Header="Категория"   Grid.RowSpan="3">
                         <ListBox ItemsSource="{Binding CategoriesVarus}" 
                                  DisplayMemberPath="Name"
-                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,177,0"
+                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
-                    <GroupBox Header="{Binding SelectedCategories.Name, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,21,-23,0" Grid.ColumnSpan="2">
-                        <DataGrid ItemsSource="{Binding SelectedCategories.Products}" 
+                    <GroupBox Header="{Binding SelectedCategories.Name,   
+                        FallbackValue='Список товаров',
+                        TargetNullValue='Категория не выброна'}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="0,10">
+                                <TextBlock Text="Фильтер :"/>
+                                <TextBox Text="{Binding ProductFilterText, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DataGrid ItemsSource="{Binding SelectedCategoriesProducts}" 
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
-                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0" Height="339"
+                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,-2,0"
                                   >
-                            <DataGrid.Columns >
-                                <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
-                                <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
+                                    <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
+
+
+        
         </TabControl>
     </DockPanel>
 

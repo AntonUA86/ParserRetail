@@ -62,6 +62,7 @@ namespace View.ViewModels
         public static ProductInfoController productInfoController { get; set; }
 
         #region Текст фильтра продуктов
+
         private string _ProductFilterText;
 
         public string ProductFilterText
@@ -70,7 +71,7 @@ namespace View.ViewModels
             set
             {
                 if (!Set(ref _ProductFilterText, value)) return;
-                _SelectedCategoriesProduct.View.Refresh();
+                _SelectedCategoriesProducts.View.Refresh();
             }
         }
         #endregion
@@ -86,8 +87,8 @@ namespace View.ViewModels
             {
                 if (!Set(ref _SelectedCategories, value)) return;
 
-                _SelectedCategoriesProduct.Source = value?.Products;
-                OnPropertyChanged(nameof(SelectedCategoriesProduct));
+                _SelectedCategoriesProducts.Source = value?.Products;
+                OnPropertyChanged(nameof(SelectedCategoriesProducts));
             }
         }
 
@@ -106,10 +107,10 @@ namespace View.ViewModels
 
         #endregion
 
-        #region SelectedCategoriesProduct Filtred
-        private readonly CollectionViewSource _SelectedCategoriesProduct = new CollectionViewSource();
+        #region SelectedCategoriesProduct Filter
+        private readonly CollectionViewSource _SelectedCategoriesProducts = new CollectionViewSource();
 
-        public ICollectionView SelectedCategoriesProduct => _SelectedCategoriesProduct?.View;
+        public ICollectionView SelectedCategoriesProducts => _SelectedCategoriesProducts?.View;
 
         private void OnProductFiltred(object sender, FilterEventArgs e)
         {
@@ -123,13 +124,13 @@ namespace View.ViewModels
             if (string.IsNullOrWhiteSpace(filterText))
                 return;
 
-            if (product.Name is null)
+            if (product.title is null)
             {
                 e.Accepted = false;
                 return;
             }
 
-            if (product.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (product.title.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
 
             e.Accepted = false;
 
@@ -178,19 +179,6 @@ namespace View.ViewModels
             Application.Current.Shutdown();
         }
         #endregion
-        #region
-        /*  public ICommand ChangeTabIndexCommand { get; }
-
-          private bool CanChangeTabIndexCommmandExecute(object p) => true;
-
-          private void OnChangeTabIndexCommmandExecute(object p)
-          {
-
-
-              SelectedPageIndex += null ;
-          }*/
-
-        #endregion
         #endregion
 
 
@@ -221,7 +209,7 @@ namespace View.ViewModels
             CategoriesNovus = new ObservableCollection<Categories>(GetCategoriesNovus());
             CategoriesAuchan = new ObservableCollection<Categories>(GetCategoriesAuchan());
 
-            _SelectedCategoriesProduct.Filter += OnProductFiltred;
+            _SelectedCategoriesProducts.Filter += OnProductFiltred;
         }
 
       
