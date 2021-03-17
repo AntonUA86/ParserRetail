@@ -14,7 +14,9 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ParserRetail.Models;
-
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Windows.Data;
+using System.ComponentModel;
 
 namespace View.ViewModels
 {
@@ -53,8 +55,19 @@ namespace View.ViewModels
         public ObservableCollection<Categories> CategoriesVarus { get; }
         public static ProductInfoController productInfoController { get; set; }
 
+        #region Текст фильтра продуктов
+        private string _ProductFilterText;
 
-
+        public string ProductFilterText
+        {
+            get => _ProductFilterText;
+            set
+            {
+                if (!Set(ref _ProductFilterText, value)) return;
+                _SelectedCategoriesProduct.View.Refresh();
+            }
+        }
+        #endregion
 
         #region Выбор Категории
 
@@ -63,10 +76,16 @@ namespace View.ViewModels
         public Categories SelectedCategories
         {
             get => _SelectedCategories;
-            set => Set(ref _SelectedCategories, value);
+            set
+            {
+                if (!Set(ref _SelectedCategories, value)) return;
+
+                _SelectedCategoriesProduct.Source = value?.Products;
+                OnPropertyChanged(nameof(SelectedCategoriesProduct));
+            }
         }
 
-        
+
 
         #endregion
 
@@ -81,6 +100,37 @@ namespace View.ViewModels
 
         #endregion
 
+        #region SelectedCategoriesProduct Filtred
+        private readonly CollectionViewSource _SelectedCategoriesProduct = new CollectionViewSource();
+
+        public ICollectionView SelectedCategoriesProduct => _SelectedCategoriesProduct?.View;
+
+        private void OnProductFiltred(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Product product)  )
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            var filterText = ProductFilterText;
+            if (string.IsNullOrWhiteSpace(filterText))
+                return;
+
+            if (product.Name is null)
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            if (product.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            e.Accepted = false;
+
+        }
+        #endregion
+
+
 
 
         #region Команды
@@ -93,16 +143,16 @@ namespace View.ViewModels
         }
         #endregion
         #region
-      /*  public ICommand ChangeTabIndexCommand { get; }
+        /*  public ICommand ChangeTabIndexCommand { get; }
 
-        private bool CanChangeTabIndexCommmandExecute(object p) => true;
+          private bool CanChangeTabIndexCommmandExecute(object p) => true;
 
-        private void OnChangeTabIndexCommmandExecute(object p)
-        {
+          private void OnChangeTabIndexCommmandExecute(object p)
+          {
 
 
-            SelectedPageIndex += null ;
-        }*/
+              SelectedPageIndex += null ;
+          }*/
 
         #endregion
         #endregion
@@ -119,38 +169,40 @@ namespace View.ViewModels
             productInfoController = new ProductInfoController();
 
 
-          
+
 
             CategoriesVarus = new ObservableCollection<Categories>(GetCategoriesVarus());
             CategoriesEcoMarket = new ObservableCollection<Categories>(GetCategoriesEcoMarket());
             CategoriesNovus = new ObservableCollection<Categories>(GetCategoriesNovus());
             CategoriesAuchan = new ObservableCollection<Categories>(GetCategoriesAuchan());
 
-
+            _SelectedCategoriesProduct.Filter += OnProductFiltred;
         }
+
+      
 
 
         #region CreateObservableCollectionCategories
         private static List<Categories> GetCategoriesAuchan()
         {
-            List <Categories> categories = new List<Categories>();
-            categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanBread))});
-            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanBagels))});
-            categories.Add(new Categories { Name = "Сушки и сухари", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchandriedCrust))});
-            categories.Add(new Categories { Name = "Лаваши и коржи", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanWheatBread))});
-            categories.Add(new Categories { Name = "Торты и пирожные", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanCakesAndPies))});
+            List<Categories> categories = new List<Categories>();
+            categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanBread)) });
+            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanBagels)) });
+            categories.Add(new Categories { Name = "Сушки и сухари", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchandriedCrust)) });
+            categories.Add(new Categories { Name = "Лаваши и коржи", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanWheatBread)) });
+            categories.Add(new Categories { Name = "Торты и пирожные", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanCakesAndPies)) });
 
             return categories;
         }
 
-       private static List<Categories> GetCategoriesNovus()
+        private static List<Categories> GetCategoriesNovus()
         {
             List<Categories> categories = new List<Categories>();
             categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlNovusBread)) });
             categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlNovusBagels)) });
             categories.Add(new Categories { Name = "Сушки и сухари", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlNovusDriedCrust)) });
             categories.Add(new Categories { Name = "Лаваши и коржи", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlNovusWheatBread)) });
-    
+
 
             return categories;
         }
@@ -167,7 +219,7 @@ namespace View.ViewModels
         {
             List<Categories> categories = new List<Categories>();
             categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlVarusBread)) });
-            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlVarusBagels)) });        
+            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlVarusBagels)) });
             categories.Add(new Categories { Name = "Лаваш", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlVarusLavash)) });
             return categories;
         }

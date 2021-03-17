@@ -11,7 +11,7 @@ namespace Parser.Models
       public class BaseContext : DbContext
         {
         
-/*        public DbSet<Rootobject> Products { get; set; }*/
+
         public DbSet<Product> Categories { get; set; }
 
 
