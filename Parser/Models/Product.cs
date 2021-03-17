@@ -13,7 +13,7 @@ namespace Parser.Models
         public string title { get; set; }
 
         [JsonProperty("price")]
-        public int price { get; set; }
+        public decimal price { get; set; }
 
       
     }
