@@ -90,6 +90,33 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+            <TabItem Header="Novus" Name="Novus" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Row="0"  Header="Категория" >
+                        <ListBox ItemsSource="{Binding CategoriesNovus}" 
+                                 DisplayMemberPath="Name"
+                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,177,0"
+                                 />
+                    </GroupBox>
+                    <GroupBox Header="{Binding SelectedCategories.Name, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,0,-23,0" Grid.ColumnSpan="2">
+                        <DataGrid ItemsSource="{Binding SelectedCategories.Products}" 
+                                  AutoGenerateColumns="False" 
+                                  IsReadOnly="True"
+                                  GridLinesVisibility="Vertical"
+                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"
+                                  >
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
+                                <DataGridTextColumn Header="Цена" Width="4*" Binding="{Binding price}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
             <TabItem Header="EcoMarket" Name="EcoMarket" >
                 <Grid>
                     <Grid.ColumnDefinitions>
