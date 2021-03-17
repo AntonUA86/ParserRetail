@@ -20,24 +20,29 @@
             </MenuItem>
         </Menu>
         <TabControl>
+
             <TabItem Header="Auchan" Name="Auchan">
+
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="177*" />
+                        <ColumnDefinition Width="220*"/>
+                        <ColumnDefinition Width="397*" />
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Row="0"  Header="Категория" >
+
+                    <GroupBox Grid.Row="0"  Header="Категория" Margin="0,0,112,0" Grid.ColumnSpan="2" >
                         <ListBox ItemsSource="{Binding CategoriesAuchan}" 
                                  DisplayMemberPath="Name"
-                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,177,0"
+                                 SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
-                    <GroupBox Header="{Binding SelectedCategories.Name, FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,0,-23,0" Grid.ColumnSpan="2">
-                        <DataGrid ItemsSource="{Binding SelectedCategories.Products}" 
+
+                    <GroupBox Header="{Binding SelectedCategories.Name,   FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="125,26,-23,0" Grid.ColumnSpan="2" Grid.Column="1">
+                        <DataGrid ItemsSource="{Binding SelectedCategoriesProduct}" 
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
-                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"
+                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"  Height="305"
                                   >
                             <DataGrid.Columns >
                                 <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
@@ -45,6 +50,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Novus" Name="Novus" >
@@ -113,12 +119,12 @@
                                  SelectedItem="{Binding SelectedCategories}" Margin="0,0,177,0"
                                  />
                     </GroupBox>
-                    <GroupBox Header="{Binding SelectedCategories.Name, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,0,-23,0" Grid.ColumnSpan="2">
+                    <GroupBox Header="{Binding SelectedCategories.Name, StringFormat='Продукты категории {0}', FallbackValue='Список товаров', TargetNullValue='Категория не выброна'}" Margin="302,21,-23,0" Grid.ColumnSpan="2">
                         <DataGrid ItemsSource="{Binding SelectedCategories.Products}" 
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
-                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0"
+                                  VerticalGridLinesBrush="DarkGray" Margin="0,0,28,0" Height="339"
                                   >
                             <DataGrid.Columns >
                                 <DataGridTextColumn Header="Продукт" Width="6*"  Binding="{Binding title}"/>
