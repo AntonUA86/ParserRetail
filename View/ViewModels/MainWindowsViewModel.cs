@@ -20,14 +20,42 @@ namespace View.ViewModels
 {
     internal class MainWindowsViewModel : ViewModel
     {
-        private const string urlVarusBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/bread-auchan/products/?sort=price_asc";
-        private const string urlEcoMarketBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/semi-hard-cheese-auchan/products/?sort=price_asc";
-        private const string urlAuchanFuit = @"https://stores-api.zakaz.ua/stores/48246401/products/search/?q=%D0%A4%D1%80%D1%83%D0%BA%D1%82%D1%8B&category_id=fruits-and-vegetables-auchan";
-        public ObservableCollection<Categories> Categories { get; }
+
+        #region URLCategories
+        private const string urlAuchanBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/bread-auchan/products/?sort=price_asc";
+        private const string urlAuchanBagels = @"https://stores-api.zakaz.ua/stores/48246401/categories/bagels-auchan/products/?sort=price_asc";
+        private const string urlAuchandriedCrust = @"https://stores-api.zakaz.ua/stores/48246401/categories/dried-crust-and-rolls-auchan/products/?sort=price_asc";
+        private const string urlAuchanWheatBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/wheat-bread-and-shortcake-auchan/products/?sort=price_asc";
+        private const string urlAuchanCakesAndPies = @"https://stores-api.zakaz.ua/stores/48246401/categories/cakes-and-pies-auchan/products/?sort=price_asc";
 
 
-       
-       
+
+        private const string urlNovusBread = @"https://stores-api.zakaz.ua/stores/48201070/categories/bread/products/?sort=price_asc";
+        private const string urlNovusBagels = @"https://stores-api.zakaz.ua/stores/48201070/categories/bagels/products/?sort=price_asc";
+        private const string urlNovusDriedCrust = @"https://stores-api.zakaz.ua/stores/48201070/categories/dried-crust-and-rolls/products/?sort=price_asc";
+        private const string urlNovusWheatBread = @"https://stores-api.zakaz.ua/stores/48201070/categories/wheat-bread-and-shortcake/products/?sort=price_asc";
+
+        private const string urlEcoMarketBread = @"https://stores-api.zakaz.ua/stores/48280214/categories/bread-ekomarket/products/?sort=price_asc";
+        private const string urlEcoMarketBagels = @"https://stores-api.zakaz.ua/stores/48280214/categories/bagels-ekomarket/products/?sort=price_asc";
+        private const string urlEcoMarketDriedCrust = @"https://stores-api.zakaz.ua/stores/48280214/categories/dried-crust-and-rolls-ekomarket/products/?sort=price_asc";
+        private const string urlEcoMarketLavash = @"https://stores-api.zakaz.ua/stores/48280214/categories/lavash-ekomarket/products/?sort=price_asc";
+
+        private const string urlVarusBread = @"https://stores-api.zakaz.ua/stores/48241001/categories/bread-varus/products/?sort=price_asc";
+        private const string urlVarusBagels = @"https://stores-api.zakaz.ua/stores/48241001/categories/bagels-varus/products/?sort=price_asc";
+        private const string urlVarusLavash = @"https://stores-api.zakaz.ua/stores/48241001/categories/lavash-varus/products/?sort=price_asc";
+        #endregion
+
+
+
+        public ObservableCollection<Categories> CategoriesAuchan { get; }
+        public ObservableCollection<Categories> CategoriesNovus { get; }
+        public ObservableCollection<Categories> CategoriesEcoMarket { get; }
+        public ObservableCollection<Categories> CategoriesVarus { get; }
+        public static ProductInfoController productInfoController { get; set; }
+
+
+
+
         #region Выбор Категории
 
         private Categories _SelectedCategories;
@@ -41,6 +69,8 @@ namespace View.ViewModels
         
 
         #endregion
+
+
         #region Заголовок окна
         private string _Title = "Анализ цен";
 
@@ -85,39 +115,63 @@ namespace View.ViewModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             #endregion
 
-            ProductInfoController productInfoController = new ProductInfoController();
-            Dictionary<string,Product> product = new Dictionary<string,Product>();
-            Dictionary<string, string> url = new Dictionary<string, string>();
-            url.Add("Хлеб",urlVarusBread);
 
-            /*    controllerProductInfo.SaveProductToList(product, urlVarusBread);*/
-        /*    productInfoController.SaveProductToList(product, urlVarusBread,"Хлеб");*/
-            productInfoController.SaveProductToList(product, urlEcoMarketBread, "Молоко");
+            productInfoController = new ProductInfoController();
 
-            IEnumerable<Categories> categories = GetCategories(product);
 
-            Categories = new ObservableCollection<Categories>(categories);
+          
+
+            CategoriesVarus = new ObservableCollection<Categories>(GetCategoriesVarus());
+            CategoriesEcoMarket = new ObservableCollection<Categories>(GetCategoriesEcoMarket());
+            CategoriesNovus = new ObservableCollection<Categories>(GetCategoriesNovus());
+            CategoriesAuchan = new ObservableCollection<Categories>(GetCategoriesAuchan());
 
 
         }
 
-        private static List<Categories> GetCategories(Dictionary<string,Product> prod)
+
+        #region CreateObservableCollectionCategories
+        private static List<Categories> GetCategoriesAuchan()
         {
-            List<Categories> categories = new List<Categories>();
-            categories.Add(new Categories { Name = prod.Keys.ToString() , Products = new ObservableCollection<Product>(prod.Values) });
-            categories.Add(new Categories { Name = prod.Keys.ToString(), Products = new ObservableCollection<Product>(prod.Values) });
+            List <Categories> categories = new List<Categories>();
+            categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanBread))});
+            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanBagels))});
+            categories.Add(new Categories { Name = "Сушки и сухари", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchandriedCrust))});
+            categories.Add(new Categories { Name = "Лаваши и коржи", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanWheatBread))});
+            categories.Add(new Categories { Name = "Торты и пирожные", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanCakesAndPies))});
 
             return categories;
         }
 
-        private static IEnumerable<Categories> GetCategories2(List<Product> prod, string nameCategories)
+       private static List<Categories> GetCategoriesNovus()
         {
-            return Enumerable.Range(1, 20).Select(i => new Categories
-            {
-                Name = nameCategories,
-                Products = new ObservableCollection<Product>(prod)
-            });
+            List<Categories> categories = new List<Categories>();
+            categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlNovusBread)) });
+            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlNovusBagels)) });
+            categories.Add(new Categories { Name = "Сушки и сухари", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlNovusDriedCrust)) });
+            categories.Add(new Categories { Name = "Лаваши и коржи", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlNovusWheatBread)) });
+    
+
+            return categories;
         }
+        private static List<Categories> GetCategoriesEcoMarket()
+        {
+            List<Categories> categories = new List<Categories>();
+            categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlEcoMarketBread)) });
+            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlEcoMarketBagels)) });
+            categories.Add(new Categories { Name = "Сушки и сухари", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlEcoMarketDriedCrust)) });
+            categories.Add(new Categories { Name = "Лаваш", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlEcoMarketLavash)) });
+            return categories;
+        }
+        private static List<Categories> GetCategoriesVarus()
+        {
+            List<Categories> categories = new List<Categories>();
+            categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlVarusBread)) });
+            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlVarusBagels)) });        
+            categories.Add(new Categories { Name = "Лаваш", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlVarusLavash)) });
+            return categories;
+        }
+        #endregion
+
     }
 }
-

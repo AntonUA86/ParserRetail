@@ -35,7 +35,7 @@ namespace Parser.Controller
                 {
                     var title = item.title;
                     var price = item.price;
-                   /* Categories.Add(new Product { title = title, price = price });*/
+                    Categories.Add(new Product { title = title, price = price });
                     SaveChanges();
                 }
 
