@@ -8,9 +8,11 @@ namespace Parser.Models
 {
    public class Stores
     {
-        [Key]   
+        [Key]
         public int ID { get; set; }
 
         public string Name { get; set; }
+    
+
     }
 }

@@ -10,8 +10,8 @@ namespace Parser.Models
 {
       public class BaseContext : DbContext
         {
-        
 
+      
         public DbSet<Categories> Categories { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Stores> Stores { get; set; }
@@ -22,9 +22,11 @@ namespace Parser.Models
         {
             optionsBuilder.UseSqlite(
                 "Data Source=Products.db");
-            optionsBuilder.UseLazyLoadingProxies();
+         
+            /* optionsBuilder.UseLazyLoadingProxies();*/
             base.OnConfiguring(optionsBuilder);
         }
+
     }
    
 }

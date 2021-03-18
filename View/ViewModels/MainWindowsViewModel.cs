@@ -55,6 +55,7 @@ namespace View.ViewModels
         private const string urlAuchanCakesAndPies = @"https://stores-api.zakaz.ua/stores/48246401/categories/cakes-and-pies-auchan/products/?sort=price_asc";
 
 
+
         public ObservableCollection<Categories> CategoriesAuchan { get; }
         public ObservableCollection<Categories> CategoriesNovus { get; }
         public ObservableCollection<Categories> CategoriesEcoMarket { get; }
@@ -85,6 +86,7 @@ namespace View.ViewModels
             get => _SelectedCategories;
             set
             {
+                
                 if (!Set(ref _SelectedCategories, value)) return;
 
                 _SelectedCategoriesProducts.Source = value?.Products;
@@ -96,6 +98,8 @@ namespace View.ViewModels
 
         #endregion
 
+
+       
 
         #region Заголовок окна
         private string _Title = "Анализ цен";
@@ -179,7 +183,25 @@ namespace View.ViewModels
             Application.Current.Shutdown();
         }
         #endregion
+        #region SaveDBCommand
+        public ICommand SaveDBCommand { get; }
+        private bool CanSaveDBCommandCommandExecute(object p) => true;
+        private void OnSaveDBCommandCommandExecuted(object p)
+        {
+            using (BaseContext BaseContext = new BaseContext())
+            {
+                Stores stores = new Stores();
+                stores.Name = "Novus";
+
+                BaseContext.Database.EnsureCreated();
+                BaseContext.Stores.Add(stores);
+                BaseContext.SaveChanges();
+            }
+        }
+
         #endregion
+        #endregion
+
 
 
 
@@ -187,7 +209,10 @@ namespace View.ViewModels
         {
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            SaveDBCommand = new LambdaCommand(OnSaveDBCommandCommandExecuted, CanSaveDBCommandCommandExecute);
             #endregion
+
+            
 
 
             productInfoController = new ProductInfoController();
@@ -210,9 +235,13 @@ namespace View.ViewModels
             CategoriesAuchan = new ObservableCollection<Categories>(GetCategoriesAuchan());
 
             _SelectedCategoriesProducts.Filter += OnProductFiltred;
+            
         }
 
-      
+
+
+
+
 
 
         #region CreateObservableCollectionCategories

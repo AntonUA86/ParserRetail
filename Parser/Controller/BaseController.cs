@@ -7,6 +7,7 @@ using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -45,6 +46,11 @@ namespace Parser.Controller
             
 
         }*/
+     
+        public void Save()
+        {
+          
+        }
     }
 }
 
