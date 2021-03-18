@@ -11,16 +11,18 @@ namespace ParserRetail.Models
 
     public class Categories
     {
-        [ForeignKey("StoresID")]
+        
         public int StoreID { get; set; }
 
-        [Key]
+       
         public int ID { get; set; }
 
         public string Name { get; set; }
         
         [JsonProperty("results")]
         public ICollection<Product> Products { get; set; }
+
+    
 
 
     }
