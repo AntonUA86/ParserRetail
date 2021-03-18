@@ -20,9 +20,9 @@ namespace Parser.Models
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(
-                "Data Source=Products.db");
-         
+            optionsBuilder.UseSqlServer(
+                "Server=(localdb)\\mssqllocalDB; Database=CatalogProduct ;Trusted_Connection=True;");
+
             /* optionsBuilder.UseLazyLoadingProxies();*/
             base.OnConfiguring(optionsBuilder);
         }

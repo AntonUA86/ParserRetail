@@ -1,10 +1,7 @@
-﻿using HtmlAgilityPack;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Parser.Models;
 using ParserRetail.Models;
-using ScrapySharp.Extensions;
-using ScrapySharp.Network;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,10 +15,10 @@ using System.Threading.Tasks;
 
 namespace Parser.Controller
 {
-    public class BaseController : BaseContext
+/*    public class BaseController : BaseContext
     {
       
- /*       public  void Save()
+ *//*       public  void Save()
         {
           
             using (var client = new WebClient())
@@ -45,12 +42,9 @@ namespace Parser.Controller
 
             
 
-        }*/
+        }*//*
      
-        public void Save()
-        {
-          
-        }
-    }
+     
+    }*/
 }
 

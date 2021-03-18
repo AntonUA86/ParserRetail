@@ -1,9 +1,6 @@
-﻿using HtmlAgilityPack;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Parser.Controller;
 using Parser.Models;
-using ScrapySharp.Extensions;
-using ScrapySharp.Network;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
