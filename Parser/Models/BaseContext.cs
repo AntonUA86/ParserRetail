@@ -22,10 +22,26 @@ namespace Parser.Models
         {
             optionsBuilder.UseSqlServer(
                 "Server=(localdb)\\mssqllocalDB; Database=CatalogProduct ;Trusted_Connection=True;");
-
-            /* optionsBuilder.UseLazyLoadingProxies();*/
             base.OnConfiguring(optionsBuilder);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Categories>()
+                .HasOne(c => c.Stores)
+                .WithMany(s => s.Categories)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+
+            modelBuilder.Entity<Product>()
+                .HasOne(c => c.Categories)
+                .WithMany(p => p.Products)
+                .OnDelete(DeleteBehavior.Cascade);   
+        }
+
+
+     
 
     }
    
