@@ -11,7 +11,7 @@ namespace Parser.Models
     public class Product
     {
       
-        public int CategorieID { get; set; }
+       
 
        
         public int ID { get; set; }
@@ -22,7 +22,9 @@ namespace Parser.Models
         [JsonProperty("price")]
         public decimal price { get; set; }
 
+       
 
+         public  Categories Categories { get; set; }
 
 
     }

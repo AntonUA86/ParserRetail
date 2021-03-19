@@ -12,7 +12,7 @@ namespace ParserRetail.Models
     public class Categories
     {
         
-        public int StoreID { get; set; }
+    
 
        
         public int ID { get; set; }
@@ -21,6 +21,8 @@ namespace ParserRetail.Models
         
         [JsonProperty("results")]
         public ICollection<Product> Products { get; set; }
+
+        public Stores Stores { get; set; }
 
     
 

@@ -188,14 +188,34 @@ namespace View.ViewModels
         private bool CanSaveDBCommandCommandExecute(object p) => true;
         private void OnSaveDBCommandCommandExecuted(object p)
         {
-            using (BaseContext BaseContext = new BaseContext())
+            using (BaseContext Base = new BaseContext())
             {
-                Stores stores = new Stores();
-                stores.Name = "Novus";
+                if (Base.Database.CanConnect() == false)
+                    Base.Database.EnsureCreated();
 
-                BaseContext.Database.EnsureCreated();
-                BaseContext.Stores.Add(stores);
-                BaseContext.SaveChanges();
+               
+                foreach (var item in Base.Stores)        
+                    if (item != null)
+                        Base.Stores.Remove(item);
+
+                 Base.SaveChanges();
+              
+
+      
+                Stores Auchan = new Stores { Name = "Auchan" , Categories = CategoriesAuchan.ToList()};
+                Stores Novus = new Stores { Name = "Novus", Categories = CategoriesNovus.ToList()};
+                Stores EcoMarket = new Stores { Name = "EcoMarket", Categories = CategoriesEcoMarket.ToList()};
+                Stores Varus = new Stores { Name = "Varus", Categories = CategoriesVarus.ToList()};
+                Base.Stores.AddRange(Auchan, Novus, EcoMarket, Varus);
+            
+                Base.SaveChanges();
+
+     
+
+
+            
+
+
             }
         }
 
