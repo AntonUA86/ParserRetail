@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:View.ViewModels"
         xmlns:l="clr-namespace:View"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="{Binding Title}"  Width="800" Height="283" >
     <Window.DataContext>
@@ -39,11 +40,21 @@
                                  SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
-
+                    <DockPanel DockPanel.Dock="Top" Grid.Column="1" Grid.ColumnSpan="2">
+                        <oxy:Plot>
+                            <oxy:Plot.Axes>
+                                <oxy:LinearAxis Position="Left"/>
+                                <oxy:LinearAxis Position="Bottom"/>
+                            </oxy:Plot.Axes>
+                            <oxy:LineSeries Color="Red"  ItemsSource="{Binding DataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
+                        </oxy:Plot>
+                    </DockPanel>
                     <GroupBox Header="{Binding SelectedCategories.Name,   
                         FallbackValue='Список товаров',
                         TargetNullValue='Категория не выброна'}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
-                        <DockPanel>
+                        
+                        <DockPanel >
+                           
                             <DockPanel DockPanel.Dock="Top" Margin="0,10">
                                 <TextBlock Text="Фильтер :"/>
                                 <TextBox Text="{Binding ProductFilterText, UpdateSourceTrigger=PropertyChanged}" />
@@ -110,6 +121,15 @@
                                  SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
+                    <DockPanel DockPanel.Dock="Top" Grid.Column="1" Grid.ColumnSpan="2">
+                        <oxy:Plot>
+                            <oxy:Plot.Axes>
+                                <oxy:LinearAxis Position="Left"/>
+                                <oxy:LinearAxis Position="Bottom"/>
+                            </oxy:Plot.Axes>
+                            <oxy:LineSeries Color="Red"  ItemsSource="{Binding DataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
+                        </oxy:Plot>
+                    </DockPanel>
                     <GroupBox Header="{Binding SelectedCategories.Name,   
                         FallbackValue='Список товаров',
                         TargetNullValue='Категория не выброна'}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
@@ -151,6 +171,15 @@
                                  SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
+                    <DockPanel DockPanel.Dock="Top" Grid.Column="1" Grid.ColumnSpan="2">
+                        <oxy:Plot>
+                            <oxy:Plot.Axes>
+                                <oxy:LinearAxis Position="Left"/>
+                                <oxy:LinearAxis Position="Bottom"/>
+                            </oxy:Plot.Axes>
+                            <oxy:LineSeries Color="Red"  ItemsSource="{Binding DataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
+                        </oxy:Plot>
+                    </DockPanel>
                     <GroupBox Header="{Binding SelectedCategories.Name,   
                         FallbackValue='Список товаров',
                         TargetNullValue='Категория не выброна'}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
@@ -192,6 +221,15 @@
                                  SelectedItem="{Binding SelectedCategories}" Margin="0,0,18,0"
                                  />
                     </GroupBox>
+                    <DockPanel DockPanel.Dock="Top" Grid.Column="1" Grid.ColumnSpan="2">
+                        <oxy:Plot>
+                            <oxy:Plot.Axes>
+                                <oxy:LinearAxis Position="Left"/>
+                                <oxy:LinearAxis Position="Bottom"/>
+                            </oxy:Plot.Axes>
+                            <oxy:LineSeries Color="Red"  ItemsSource="{Binding DataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
+                        </oxy:Plot>
+                    </DockPanel>
                     <GroupBox Header="{Binding SelectedCategories.Name,   
                         FallbackValue='Список товаров',
                         TargetNullValue='Категория не выброна'}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
