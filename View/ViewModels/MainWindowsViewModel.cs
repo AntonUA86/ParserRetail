@@ -24,29 +24,7 @@ namespace View.ViewModels
     internal class MainWindowsViewModel : ViewModel
     {
 
-        #region URLCategories
-        private const string urlAuchanBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/bread-auchan/products/?sort=price_asc";
-        private const string urlAuchanBagels = @"https://stores-api.zakaz.ua/stores/48246401/categories/bagels-auchan/products/?sort=price_asc";
-        private const string urlAuchandriedCrust = @"https://stores-api.zakaz.ua/stores/48246401/categories/dried-crust-and-rolls-auchan/products/?sort=price_asc";
-        private const string urlAuchanWheatBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/wheat-bread-and-shortcake-auchan/products/?sort=price_asc";
-        private const string urlAuchanCakesAndPies = @"https://stores-api.zakaz.ua/stores/48246401/categories/cakes-and-pies-auchan/products/?sort=price_asc";
-
-
-
-        private const string urlNovusBread = @"https://stores-api.zakaz.ua/stores/48201070/categories/bread/products/?sort=price_asc";
-        private const string urlNovusBagels = @"https://stores-api.zakaz.ua/stores/48201070/categories/bagels/products/?sort=price_asc";
-        private const string urlNovusDriedCrust = @"https://stores-api.zakaz.ua/stores/48201070/categories/dried-crust-and-rolls/products/?sort=price_asc";
-        private const string urlNovusWheatBread = @"https://stores-api.zakaz.ua/stores/48201070/categories/wheat-bread-and-shortcake/products/?sort=price_asc";
-
-        private const string urlEcoMarketBread = @"https://stores-api.zakaz.ua/stores/48280214/categories/bread-ekomarket/products/?sort=price_asc";
-        private const string urlEcoMarketBagels = @"https://stores-api.zakaz.ua/stores/48280214/categories/bagels-ekomarket/products/?sort=price_asc";
-        private const string urlEcoMarketDriedCrust = @"https://stores-api.zakaz.ua/stores/48280214/categories/dried-crust-and-rolls-ekomarket/products/?sort=price_asc";
-        private const string urlEcoMarketLavash = @"https://stores-api.zakaz.ua/stores/48280214/categories/lavash-ekomarket/products/?sort=price_asc";
-
-        private const string urlVarusBread = @"https://stores-api.zakaz.ua/stores/48241001/categories/bread-varus/products/?sort=price_asc";
-        private const string urlVarusBagels = @"https://stores-api.zakaz.ua/stores/48241001/categories/bagels-varus/products/?sort=price_asc";
-        private const string urlVarusLavash = @"https://stores-api.zakaz.ua/stores/48241001/categories/lavash-varus/products/?sort=price_asc";
-        #endregion
+        
 
 
 
@@ -93,17 +71,17 @@ namespace View.ViewModels
 
         #endregion
 
+        #region DataPoint
+        private IEnumerable<DataPoint> _DataPoints;
 
+        public IEnumerable<DataPoint> DataPoints { get => _DataPoints; set => Set(ref _DataPoints, value); }
+
+        #endregion
 
 
         #region Заголовок окна
         private string _Title = "Анализ цен";
-
         public string Title { get => _Title; set => Set(ref _Title, value); }
-
-
-
-
         #endregion
 
         #region SelectedCategoriesProduct Filter
@@ -200,8 +178,16 @@ namespace View.ViewModels
             SaveDBCommand = new LambdaCommand(OnSaveDBCommandCommandExecuted, CanSaveDBCommandCommandExecute);
             #endregion
 
+            var data_point = new List<DataPoint>((int)(360 / 0.1));
+            for (double x = 0d; x <= 360; x += 0.1)
+            {
+                const double rad = Math.PI / 180;
+                double y = Math.Sin(x * rad);
 
+                data_point.Add(new DataPoint {XValue =x , YValue = y });
+            }
 
+            DataPoints = data_point;
 
             productInfoController = new ProductInfoController();
 
@@ -222,7 +208,29 @@ namespace View.ViewModels
 
 
 
+        #region URLCategories
+        private const string urlAuchanBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/bread-auchan/products/?sort=price_asc";
+        private const string urlAuchanBagels = @"https://stores-api.zakaz.ua/stores/48246401/categories/bagels-auchan/products/?sort=price_asc";
+        private const string urlAuchandriedCrust = @"https://stores-api.zakaz.ua/stores/48246401/categories/dried-crust-and-rolls-auchan/products/?sort=price_asc";
+        private const string urlAuchanWheatBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/wheat-bread-and-shortcake-auchan/products/?sort=price_asc";
+        private const string urlAuchanCakesAndPies = @"https://stores-api.zakaz.ua/stores/48246401/categories/cakes-and-pies-auchan/products/?sort=price_asc";
 
+
+
+        private const string urlNovusBread = @"https://stores-api.zakaz.ua/stores/48201070/categories/bread/products/?sort=price_asc";
+        private const string urlNovusBagels = @"https://stores-api.zakaz.ua/stores/48201070/categories/bagels/products/?sort=price_asc";
+        private const string urlNovusDriedCrust = @"https://stores-api.zakaz.ua/stores/48201070/categories/dried-crust-and-rolls/products/?sort=price_asc";
+        private const string urlNovusWheatBread = @"https://stores-api.zakaz.ua/stores/48201070/categories/wheat-bread-and-shortcake/products/?sort=price_asc";
+
+        private const string urlEcoMarketBread = @"https://stores-api.zakaz.ua/stores/48280214/categories/bread-ekomarket/products/?sort=price_asc";
+        private const string urlEcoMarketBagels = @"https://stores-api.zakaz.ua/stores/48280214/categories/bagels-ekomarket/products/?sort=price_asc";
+        private const string urlEcoMarketDriedCrust = @"https://stores-api.zakaz.ua/stores/48280214/categories/dried-crust-and-rolls-ekomarket/products/?sort=price_asc";
+        private const string urlEcoMarketLavash = @"https://stores-api.zakaz.ua/stores/48280214/categories/lavash-ekomarket/products/?sort=price_asc";
+
+        private const string urlVarusBread = @"https://stores-api.zakaz.ua/stores/48241001/categories/bread-varus/products/?sort=price_asc";
+        private const string urlVarusBagels = @"https://stores-api.zakaz.ua/stores/48241001/categories/bagels-varus/products/?sort=price_asc";
+        private const string urlVarusLavash = @"https://stores-api.zakaz.ua/stores/48241001/categories/lavash-varus/products/?sort=price_asc";
+        #endregion
         #region CreateObservableCollectionCategories
         private static List<Categories> GetCategoriesAuchan()
         {

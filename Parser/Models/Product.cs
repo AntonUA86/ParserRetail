@@ -17,6 +17,6 @@ namespace Parser.Models
 
         public  Categories Categories { get; set; }
 
-
+      
     }
 }
