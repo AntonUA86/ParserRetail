@@ -17,6 +17,7 @@ using ParserRetail.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Windows.Data;
 using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace View.ViewModels
 {
@@ -47,7 +48,7 @@ namespace View.ViewModels
         private const string urlVarusLavash = @"https://stores-api.zakaz.ua/stores/48241001/categories/lavash-varus/products/?sort=price_asc";
         #endregion
 
-      
+
 
 
         public ObservableCollection<Categories> CategoriesAuchan { get; }
@@ -80,7 +81,7 @@ namespace View.ViewModels
             get => _SelectedCategories;
             set
             {
-                
+
                 if (!Set(ref _SelectedCategories, value)) return;
 
                 _SelectedCategoriesProducts.Source = value?.Products;
@@ -93,7 +94,7 @@ namespace View.ViewModels
         #endregion
 
 
-       
+
 
         #region Заголовок окна
         private string _Title = "Анализ цен";
@@ -112,7 +113,7 @@ namespace View.ViewModels
 
         private void OnProductFiltred(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is Product product)  )
+            if (!(e.Item is Product product))
             {
                 e.Accepted = false;
                 return;
@@ -157,27 +158,30 @@ namespace View.ViewModels
                 if (Base.Database.CanConnect() == false)
                     Base.Database.EnsureCreated();
 
-               
-                foreach (var item in Base.Stores)        
+
+                foreach (var item in Base.Stores)
                     if (item != null)
                         Base.Stores.Remove(item);
 
-                 Base.SaveChanges();
-              
 
-      
-                Stores Auchan = new Stores { Name = "Auchan" , Categories = CategoriesAuchan.ToList()};
-                Stores Novus = new Stores { Name = "Novus", Categories = CategoriesNovus.ToList()};
-                Stores EcoMarket = new Stores { Name = "EcoMarket", Categories = CategoriesEcoMarket.ToList()};
-                Stores Varus = new Stores { Name = "Varus", Categories = CategoriesVarus.ToList()};
-                Base.Stores.AddRange(Auchan, Novus, EcoMarket, Varus);
-            
                 Base.SaveChanges();
 
-     
 
 
-            
+
+
+
+
+                Stores Auchan = new Stores { Name = "Auchan", Categories = CategoriesAuchan.ToList() };
+                Stores Novus = new Stores { Name = "Novus", Categories = CategoriesNovus.ToList() };
+                Stores EcoMarket = new Stores { Name = "EcoMarket", Categories = CategoriesEcoMarket.ToList() };
+                Stores Varus = new Stores { Name = "Varus", Categories = CategoriesVarus.ToList() };
+                Base.Stores.AddRange(Auchan, Novus, EcoMarket, Varus);
+
+
+                Base.SaveChanges();
+
+
 
 
             }
@@ -196,10 +200,12 @@ namespace View.ViewModels
             SaveDBCommand = new LambdaCommand(OnSaveDBCommandCommandExecuted, CanSaveDBCommandCommandExecute);
             #endregion
 
-            
+
 
 
             productInfoController = new ProductInfoController();
+
+
 
 
             CategoriesVarus = new ObservableCollection<Categories>(GetCategoriesVarus());
@@ -208,7 +214,7 @@ namespace View.ViewModels
             CategoriesAuchan = new ObservableCollection<Categories>(GetCategoriesAuchan());
 
             _SelectedCategoriesProducts.Filter += OnProductFiltred;
-            
+
         }
 
 

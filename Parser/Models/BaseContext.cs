@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using ParserRetail.Models;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Text;
 
 namespace Parser.Models
 {

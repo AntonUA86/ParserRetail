@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace View.Infrastructure.Commands.Base
@@ -12,7 +10,6 @@ namespace View.Infrastructure.Commands.Base
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested -= value;
         }
-
 
         /// <summary>
         /// Определяет, может ли команда выполнятьс

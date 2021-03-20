@@ -1,19 +1,12 @@
 ﻿using Newtonsoft.Json;
 using ParserRetail.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+
 
 namespace Parser.Models
 {
     public class Product
     {
-      
-       
-
-       
+           
         public int ID { get; set; }
 
         [JsonProperty("title")]
@@ -22,9 +15,7 @@ namespace Parser.Models
         [JsonProperty("price")]
         public decimal price { get; set; }
 
-       
-
-         public  Categories Categories { get; set; }
+        public  Categories Categories { get; set; }
 
 
     }
