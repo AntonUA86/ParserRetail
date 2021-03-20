@@ -7,14 +7,18 @@ using System.Text;
 
 namespace Parser.Models
 {
-   public class Stores
+
+    public class Stores
     {
-       
+
         public int Id { get; set; }
 
         public string Name { get; set; }
 
+       
         public List<Categories> Categories { get; set; }
+
+    
 
     }
 }
