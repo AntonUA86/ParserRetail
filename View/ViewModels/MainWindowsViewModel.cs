@@ -24,14 +24,8 @@ namespace View.ViewModels
     internal class MainWindowsViewModel : ViewModel
     {
 
-        
 
-        #region URLCategories
-        private const string urlAuchanBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/bread-auchan/products/?sort=price_asc";
-        private const string urlAuchanBagels = @"https://stores-api.zakaz.ua/stores/48246401/categories/bagels-auchan/products/?sort=price_asc";
-        private const string urlAuchandriedCrust = @"https://stores-api.zakaz.ua/stores/48246401/categories/dried-crust-and-rolls-auchan/products/?sort=price_asc";
-        private const string urlAuchanWheatBread = @"https://stores-api.zakaz.ua/stores/48246401/categories/wheat-bread-and-shortcake-auchan/products/?sort=price_asc";
-        private const string urlAuchanCakesAndPies = @"https://stores-api.zakaz.ua/stores/48246401/categories/cakes-and-pies-auchan/products/?sort=price_asc";
+
 
 
 
@@ -120,36 +114,6 @@ namespace View.ViewModels
         }
         #endregion
 
-        #region SelectedCategoriesProduct Filtred
-        private readonly CollectionViewSource _SelectedCategoriesProduct = new CollectionViewSource();
-
-        public ICollectionView SelectedCategoriesProduct => _SelectedCategoriesProduct?.View;
-
-        private void OnProductFiltred(object sender, FilterEventArgs e)
-        {
-            if (!(e.Item is Product product)  )
-            {
-                e.Accepted = false;
-                return;
-            }
-
-            var filterText = ProductFilterText;
-            if (string.IsNullOrWhiteSpace(filterText))
-                return;
-
-            if (product.Name is null)
-            {
-                e.Accepted = false;
-                return;
-            }
-
-            if (product.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
-
-            e.Accepted = false;
-
-        }
-        #endregion
-
 
 
 
@@ -220,24 +184,13 @@ namespace View.ViewModels
                 const double rad = Math.PI / 180;
                 double y = Math.Sin(x * rad);
 
-                data_point.Add(new DataPoint {XValue =x , YValue = y });
+                data_point.Add(new DataPoint { XValue = x, YValue = y });
             }
 
             DataPoints = data_point;
 
             productInfoController = new ProductInfoController();
 
-
-
-        #region CreateObservableCollectionCategories
-        private static List<Categories> GetCategoriesAuchan()
-        {
-            List <Categories> categories = new List<Categories>();
-            categories.Add(new Categories { Name = "Хлеб", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanBread))});
-            categories.Add(new Categories { Name = "Булочки", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanBagels))});
-            categories.Add(new Categories { Name = "Сушки и сухари", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchandriedCrust))});
-            categories.Add(new Categories { Name = "Лаваши и коржи", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanWheatBread))});
-            categories.Add(new Categories { Name = "Торты и пирожные", Products = new ObservableCollection<Product>(productInfoController.SaveProductToList(urlAuchanCakesAndPies))});
 
 
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using Parser.Controller;
 using Parser.Models;
 using System;
@@ -22,11 +23,11 @@ namespace View
 
         public MainWindow()
         {
-            
+
             InitializeComponent();
-          
+
         }
 
-     
+
     }
 }
