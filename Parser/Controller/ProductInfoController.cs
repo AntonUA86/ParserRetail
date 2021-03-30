@@ -59,13 +59,8 @@ namespace Parser.Controller
                         var children = category["children"];
 
                         if (children.HasValues)
-                        {
                             foreach (var child in children)
-                            {
-
                                 AddCategory(child);
-                            }
-                        }
                     }
                     return categories;
                 }
